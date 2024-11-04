@@ -1,0 +1,30 @@
+{# templates/guest/list.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Invités pour {{ event.name }}{% endblock %}
+
+{% block body %}
+    <h1>Liste des Invités pour {{ event.name }}</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for guest in guests %}
+            <tr>
+                <td>{{ guest.name }}</td>
+                <td>{{ guest.email }}</td>
+                <td>
+                    <a href="{{ path('guest_edit', { 'id': guest.id }) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="{{ path('guest_delete', { 'id': guest.id }) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet invité ?');">Supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

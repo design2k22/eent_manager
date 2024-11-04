@@ -1,0 +1,15 @@
+{# templates/event/edit.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'Événement{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'Événement : {{ event.name }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">Sauvegarder</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('event_list') }}" class="btn btn-secondary">Retour à la liste</a>
+{% endblock %}

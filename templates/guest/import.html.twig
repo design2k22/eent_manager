@@ -1,0 +1,15 @@
+{# templates/guest/import.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Importer des Invités{% endblock %}
+
+{% block body %}
+    <h1>Importer des Invités pour l'événement : {{ event.name }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-success">Importer</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('guest_list', { 'id': event.id }) }}" class="btn btn-secondary">Retour à la liste des invités</a>
+{% endblock %}

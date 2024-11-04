@@ -1,0 +1,39 @@
+{# templates/event/event_list.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Event List{% endblock %}
+
+{% block body %}
+    <div class="my-4">
+        <h1 class="mb-3">Liste des événements</h1>
+
+        <a href="{{ path('event_create') }}" class="btn btn-primary mb-4">Créer un nouvel événement</a>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Lieu</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.name }}</td>
+                    <td>{{ event.date|date('d/m/Y H:i') }}</td>
+                    <td>{{ event.location }}</td>
+                    <td>{{ event.type }}</td>
+                    <td>
+                        <a href="{{ path('guest_list', { 'id': event.id }) }}" class="btn btn-secondary btn-sm">Invités</a>
+                        <a href="{{ path('event_edit', { 'id': event.id }) }}" class="btn btn-warning btn-sm">Modifier</a>
+                        <a href="{{ path('event_delete', { 'id': event.id }) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ?');">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

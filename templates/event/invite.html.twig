@@ -1,0 +1,16 @@
+{# templates/event/invite.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Inviter un invité{% endblock %}
+
+{% block body %}
+    <h1>Inviter un invité à {{ event.name }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">Envoyer l'invitation</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('event_list') }}">Retour à la liste des événements</a>
+{% endblock %}

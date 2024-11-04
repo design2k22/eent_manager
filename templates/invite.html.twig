@@ -1,0 +1,8 @@
+{# templates/invitation/invite.html.twig #}
+
+<h1>Inviter un invité pour {{ event.name }}</h1>
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+<button type="submit">Envoyer l'invitation</button>
+{{ form_end(form) }}

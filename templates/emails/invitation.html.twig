@@ -1,0 +1,6 @@
+{# templates/emails/invitation.html.twig #}
+
+<h2>Bonjour {{ guest.name }},</h2>
+<p>Vous êtes invité à l'événement "{{ event.name }}" qui se tiendra le {{ event.date|date('d-m-Y H:i') }}.</p>
+<p>Lieu : {{ event.location }}</p>
+<p>Veuillez présenter le QR code ci-joint à l'entrée pour confirmer votre présence.</p>
