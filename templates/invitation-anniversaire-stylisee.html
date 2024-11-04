@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation d'anniversaire</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Dancing+Script:wght@700&display=swap');
+        
+        :root {
+            --primary-color: #FF6B6B;
+            --secondary-color: #4ECDC4;
+            --accent-color: #FFD93D;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .invitation-container {
+            background-color: #ffffff;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before, .header::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .header::before {
+            top: -100px;
+            left: -100px;
+        }
+        
+        .header::after {
+            bottom: -100px;
+            right: -100px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 3em;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .content {
+            padding: 40px;
+            position: relative;
+        }
+        
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            animation: slideInLeft 0.5s ease-out;
+        }
+        
+        .info-item i {
+            font-size: 1.5em;
+            margin-right: 15px;
+            color: var(--secondary-color);
+        }
+        
+        .qr-code {
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .qr-code img {
+            border: 3px solid var(--accent-color);
+            border-radius: 15px;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .qr-code img:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer {
+            background-color: var(--accent-color);
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: var(--text-color);
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-color);
+            animation: confetti-fall 5s ease-out infinite;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(1000%) rotate(720deg); opacity: 0; }
+        }
+        
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            .content {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-container">
+        <div class="header">
+            <h1>🎉 Fête d'Anniversaire 🎂</h1>
+        </div>
+        
+        <div class="content">
+            <h2>Cher(e) [Nom de l'invité] 🎈,</h2>
+            
+            <p>NOtre cher, Eveline est enchantée de vous convier à une célébration d'anniversaire extraordinaire, afin de partager avec vous la joie et le bonheur de cet instant ! 🎁</p>
+            
+            <p>Préparez-vous à une cérémonie inoubliable remplie de rires, de surprises et de moments magiques ! 🍰✨</p>
+            
+            <div class="info-item">
+                <i class="fas fa-calendar-alt"></i>
+                <p><span class="highlight">Date :</span> 31 décembre 2024</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <p><span class="highlight">Lieu :</span> Chez Eve la jeune, POG</p>
+            </div>
+            <div class="info-item">
+                <i class="fas fa-phone"></i>
+                <p><span class="highlight">Contact :</span> +241 77 39 25 02</p>
+            </div>
+            
+            <div class="qr-code">
+                <p>Scannez le code QR pour accéder à tous les détails de l'événement 📲</p>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" alt="Code QR de l'événement" />
+            </div>
+            
+            <a href="https://example-event.com" class="btn">Confirmer ma présence</a>
+        </div>
+        
+        <div class="footer">
+            <p>Nous avons hâte de partager ce moment magique avec vous ! 🎈✨</p>
+        </div>
+    </div>
+
+    <script>
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confetti.style.backgroundColor = ['#FF6B6B', '#4ECDC4', '#FFD93D'][Math.floor(Math.random() * 3)];
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+
+        setInterval(createConfetti, 300);
+    </script>
+</body>
+</html>
