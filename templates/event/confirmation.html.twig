@@ -1,0 +1,111 @@
+{# templates/event/confirmation.html.twig #}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation d'invité</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f3f4f6;
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .confirmation-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .confirmation-container h1 {
+            font-size: 2.2em;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+            animation: slideInDown 1s ease-out;
+            color: {% if status == 'success' %}#4b8b3b{% else %}#b22222{% endif %}; /* Vert pour le succès, rouge pour l'erreur */
+        }
+
+        .confirmation-container p {
+            font-size: 1.2em;
+            margin: 15px 0 25px;
+            animation: fadeIn 1.5s ease-out;
+            color: {% if status == 'success' %}#333{% else %}#b22222{% endif %}; /* Rouge pour le message d'erreur */
+        }
+
+        .icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+            color: {% if status == 'success' %}#4b8b3b{% else %}#b22222{% endif %}; /* Couleur de l'icône selon le statut */
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            border-radius: 25px;
+            background-color: #4b8b3b;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #3a6f2b;
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+<div class="confirmation-container">
+    <div class="icon">
+        {% if status == 'success' %}
+            <i class="fas fa-check-circle"></i>
+        {% else %}
+            <i class="fas fa-exclamation-circle"></i>
+        {% endif %}
+    </div>
+
+    <h1>
+        {% if status == 'success' %}
+            Confirmation réussie !
+        {% else %}
+            Erreur de confirmation
+        {% endif %}
+    </h1>
+
+    <p>{{ message }}</p>
+
+</div>
+</body>
+</html>
