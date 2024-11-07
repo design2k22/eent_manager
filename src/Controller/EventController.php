@@ -244,10 +244,6 @@ class EventController extends AbstractController
                     $guestsImported = $this->importCsv($file, $event, $em);
                     $this->addFlash('success', 'Invités importés depuis le fichier CSV.');
 
-                    // Envoyer des e-mails d'invitation pour chaque invité importé
-                    foreach ($guestsImported as $importedGuest) {
-                        $this->sendInvitationEmail($mailer, $importedGuest);
-                    }
                 } catch (FileException $e) {
                     $this->addFlash('error', 'Une erreur est survenue lors de l\'importation du fichier CSV.');
                 }
@@ -333,7 +329,7 @@ class EventController extends AbstractController
     public function viewInvitation(string $name): Response
     {
         // Générer le lien de confirmation et l'URL du code QR
-        $confirmationLink = $this->generateUrl('event_confirm', ['id' => $name], UrlGeneratorInterface::ABSOLUTE_URL);
+        $confirmationLink = $this->generateUrl('event_confirm', ['id' => '1'], UrlGeneratorInterface::ABSOLUTE_URL);
         $qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($confirmationLink);
 
         // Rendre le template avec les variables nécessaires
