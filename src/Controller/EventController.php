@@ -199,16 +199,39 @@ class EventController extends AbstractController
     }
 
 
-    #[Route('/event/guest/{id}/confirm', name: 'event_confirm', methods: ['GET'])]
-    public function confirmGuest(Guest $guest): Response
+    #[Route('/event/{eventId}/guest/{guestId}/confirm', name: 'event_confirm', methods: ['GET'])]
+    public function confirmGuest(int $eventId, int $guestId, EntityManagerInterface $em): Response
     {
-        // Logique pour gérer la confirmation de l'invité (e.g., mise à jour du statut)
-        $guest->setStatus('confirmed'); // Exemple de mise à jour du statut
-        $em = $this->getDoctrine()->getManager();
+        // Récupérer l'événement et l'invité à partir de leurs ID
+        $event = $em->getRepository(Event::class)->find($eventId);
+        $guest = $em->getRepository(Guest::class)->find($guestId);
+
+        // Vérifier que l'événement et l'invité existent
+        if (!$event || !$guest) {
+            return $this->render('event/confirmation.html.twig', [
+                'message' => "L'événement ou l'invité est introuvable.",
+                'status' => 'error'
+            ]);
+        }
+
+        // Vérifier que l'invité est bien associé à cet événement
+        if ($guest->getEvent()->getId() !== $event->getId()) {
+            return $this->render('event/confirmation.html.twig', [
+                'message' => "Cet invité n'est pas associé à cet événement.",
+                'status' => 'error'
+            ]);
+        }
+
+        // Mettre à jour le statut de l'invité pour le confirmer
+        $guest->setStatus('confirmed');
         $em->persist($guest);
         $em->flush();
 
-        return $this->redirectToRoute('event_guests', ['id' => $guest->getEvent()->getId()]);
+        // Afficher la vue de confirmation
+        return $this->render('event/confirmation.html.twig', [
+            'message' => "L'invité a été confirmé avec succès pour l'événement.",
+            'status' => 'success'
+        ]);
     }
 
     #[Route('/event/{id}/guests', name: 'event_guests', methods: ['GET', 'POST'])]
@@ -325,11 +348,31 @@ class EventController extends AbstractController
         ]);
     }
 
-    #[Route('/event/invitation/{name}', name: 'view_invitation')]
-    public function viewInvitation(string $name): Response
+    #[Route('/event/{eventId}/invitation/{name}', name: 'view_invitation')]
+    public function viewInvitation(int $eventId, string $name, EntityManagerInterface $em): Response
     {
-        // Générer le lien de confirmation et l'URL du code QR
-        $confirmationLink = $this->generateUrl('event_confirm', ['id' => '1'], UrlGeneratorInterface::ABSOLUTE_URL);
+        // Rechercher l'événement par ID
+        $event = $em->getRepository(Event::class)->find($eventId);
+
+        if (!$event) {
+            throw $this->createNotFoundException("Événement non trouvé.");
+        }
+
+        // Rechercher l'invité par nom et événement
+        $guest = $em->getRepository(Guest::class)->findOneBy(['name' => $name, 'event' => $event]);
+
+        if (!$guest) {
+            throw $this->createNotFoundException("Invité non trouvé pour cet événement.");
+        }
+
+        // Générer le lien de confirmation pour cet invité et cet événement
+        $confirmationLink = $this->generateUrl(
+            'event_confirm',
+            ['eventId' => $event->getId(), 'guestId' => $guest->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        // Générer l'URL du code QR en utilisant le lien de confirmation
         $qrCodeUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' . urlencode($confirmationLink);
 
         // Rendre le template avec les variables nécessaires
