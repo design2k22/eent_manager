@@ -198,7 +198,7 @@ class EventController extends AbstractController
         unlink($pdfFilePath);
     }
 
-
+    //ok
     #[Route('/event/{eventId}/guest/{guestId}/confirm', name: 'event_confirm', methods: ['GET'])]
     public function confirmGuest(int $eventId, int $guestId, EntityManagerInterface $em): Response
     {
