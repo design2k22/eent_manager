@@ -195,7 +195,7 @@ class EventController extends AbstractController
         $mailer->send($email);
 
         // (Optionnel) Supprimer le fichier PDF après envoi pour éviter d'encombrer le serveur
-        //unlink($pdfFilePath);
+        unlink($pdfFilePath);
     }
 
 
@@ -311,9 +311,9 @@ class EventController extends AbstractController
                     $guests = $this->importCsv($file, $event, $em);
 
                     // Envoi des invitations
-                    foreach ($guests as $guest) {
-                        $this->sendInvitationEmail($mailer, $guest);
-                    }
+                    //foreach ($guests as $guest) {
+                      //  $this->sendInvitationEmail($mailer, $guest);
+                    //}
 
                     $this->addFlash('success', 'Invités importés et invitations envoyées avec succès.');
                 } catch (FileException $e) {
